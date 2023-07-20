@@ -1,25 +1,25 @@
 package LinkedList;
 
-public class MyLinkedList {
+public class MyLinkedList<E> {
 
-    private Node firstElement;
-    private Node lastElement;
+    private Node<E> firstElement;
+    private Node<E> lastElement;
     private int listSize;
 
-    private class Node {
-        Object value;
-        Node prevElement;
-        Node nextElement;
+    private static class Node<E> {
+        E value;
+        Node<E> prevElement;
+        Node<E> nextElement;
 
-        Node(Object value) {
+        Node(E value) {
             this.value = value;
             this.prevElement = null;
             this.nextElement = null;
         }
     }
 
-    public void add(Object value) {
-        Node newNode = new Node(value);
+    public void add(E value) {
+        Node<E> newNode = new Node<>(value);
 
         if (firstElement == null) {
             lastElement = newNode;
@@ -38,7 +38,7 @@ public class MyLinkedList {
             throw new IndexOutOfBoundsException();
         }
 
-        Node nodeToRemove;
+        Node<E> nodeToRemove;
 
         if (index == 0) {
             nodeToRemove = firstElement;
@@ -67,17 +67,17 @@ public class MyLinkedList {
         return listSize;
     }
 
-    public Object get(int index) {
+    public E get(int index) {
         if (index < 0 || index >= listSize) {
             throw new IndexOutOfBoundsException();
         }
 
-        Node node = getNodeAtIndex(index);
+        Node<E> node = getNodeAtIndex(index);
         return node.value;
     }
 
-    private Node getNodeAtIndex(int index) {
-        Node currentNode = firstElement;
+    private Node<E> getNodeAtIndex(int index) {
+        Node<E> currentNode = firstElement;
 
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.nextElement;

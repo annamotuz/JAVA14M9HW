@@ -1,21 +1,21 @@
 package Stack;
 
-public class MyStack {
-    private Node top;
+public class MyStack<E> {
+    private Node<E> top;
     private int size;
 
-    private class Node {
-        Object value;
-        Node next;
+    private static class Node<E> {
+        E value;
+        Node<E> next;
 
-        Node(Object value) {
+        Node(E value) {
             this.value = value;
             this.next = null;
         }
     }
 
-    public void push(Object value) {
-        Node newNode = new Node(value);
+    public void push(E value) {
+        Node<E> newNode = new Node<>(value);
 
         if (top == null) {
             top = newNode;
@@ -35,8 +35,8 @@ public class MyStack {
         if (index == 0) {
             top = top.next;
         } else {
-            Node previousNode = getNodeAtIndex(index - 1);
-            Node nodeToRemove = previousNode.next;
+            Node<E> previousNode = getNodeAtIndex(index - 1);
+            Node<E> nodeToRemove = previousNode.next;
             previousNode.next = nodeToRemove.next;
         }
 
@@ -52,7 +52,7 @@ public class MyStack {
         return size;
     }
 
-    public Object peek() {
+    public E peek() {
         if (top == null) {
             return null;
         }
@@ -60,20 +60,20 @@ public class MyStack {
         return top.value;
     }
 
-    public Object pop() {
+    public E pop() {
         if (top == null) {
             return null;
         }
 
-        Node removedNode = top;
+        Node<E> removedNode = top;
         top = top.next;
         size--;
 
         return removedNode.value;
     }
 
-    private Node getNodeAtIndex(int index) {
-        Node currentNode = top;
+    private Node<E> getNodeAtIndex(int index) {
+        Node<E> currentNode = top;
 
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
@@ -82,4 +82,3 @@ public class MyStack {
         return currentNode;
     }
 }
-

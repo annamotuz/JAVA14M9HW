@@ -1,22 +1,22 @@
 package Queue;
 
-public class MyQueue {
-    private Node first;
-    private Node last;
+public class MyQueue<E> {
+    private Node<E> first;
+    private Node<E> last;
     private int size;
 
-    private class Node {
-        Object value;
-        Node next;
+    private static class Node<E> {
+        E value;
+        Node<E> next;
 
-        Node(Object value) {
+        Node(E value) {
             this.value = value;
             this.next = null;
         }
     }
 
-    public void add(Object value) {
-        Node newNode = new Node(value);
+    public void add(E value) {
+        Node<E> newNode = new Node<>(value);
 
         if (first == null) {
             first = newNode;
@@ -39,7 +39,7 @@ public class MyQueue {
         return size;
     }
 
-    public Object peek() {
+    public E peek() {
         if (first == null) {
             return null;
         }
@@ -47,12 +47,12 @@ public class MyQueue {
         return first.value;
     }
 
-    public Object poll() {
+    public E poll() {
         if (first == null) {
             return null;
         }
 
-        Node removedNode = first;
+        Node<E> removedNode = first;
         first = first.next;
 
         if (first == null) {
@@ -64,4 +64,3 @@ public class MyQueue {
         return removedNode.value;
     }
 }
-

@@ -1,17 +1,16 @@
 package ArrayList;
 
-public class MyArrayList {
+public class MyArrayList<E> {
 
-    private Object[] arrayElements;
+    private E[] arrayElements;
     private int arraySize;
 
     public MyArrayList() {
-        arrayElements = new Object[10];
+        arrayElements = (E[]) new Object[10];
         arraySize = 0;
     }
 
-    public void add(Object value) {
-
+    public void add(E value) {
         if (arraySize == arrayElements.length) {
             increaseCapacity();
         }
@@ -21,24 +20,16 @@ public class MyArrayList {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= arraySize) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndex(index);
 
-        for (int i = index; i < arraySize - 1; i++) {
-            arrayElements[i] = arrayElements[i + 1];
-        }
+        System.arraycopy(arrayElements, index + 1, arrayElements, index, arraySize - index - 1);
 
         arrayElements[arraySize - 1] = null;
         arraySize--;
     }
 
     public void clear() {
-
-        for (int i = 0; i < arraySize; i++) {
-            arrayElements[i] = null;
-        }
-
+        arrayElements = (E[]) new Object[10];
         arraySize = 0;
     }
 
@@ -46,24 +37,23 @@ public class MyArrayList {
         return arraySize;
     }
 
-    public Object get(int index) {
+    public E get(int index) {
+        checkIndex(index);
+        return arrayElements[index];
+    }
+
+    private void checkIndex(int index) {
         if (index < 0 || index >= arraySize) {
             throw new IndexOutOfBoundsException();
         }
-
-        return arrayElements[index];
     }
 
     private void increaseCapacity() {
         int newCapacity = arrayElements.length * 2;
-        Object[] newElements = new Object[newCapacity];
+        E[] newElements = (E[]) new Object[newCapacity];
 
-        for (int i = 0; i < arraySize; i++) {
-            newElements[i] = arrayElements[i];
-        }
+        System.arraycopy(arrayElements, 0, newElements, 0, arraySize);
 
         arrayElements = newElements;
     }
 }
-
-
