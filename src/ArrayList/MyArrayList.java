@@ -2,11 +2,13 @@ package ArrayList;
 
 public class MyArrayList<E> {
 
+    private static final int DEFAULT_CAPACITY = 10;
+
     private E[] arrayElements;
     private int arraySize;
 
     public MyArrayList() {
-        arrayElements = (E[]) new Object[10];
+        arrayElements = (E[]) new Object[DEFAULT_CAPACITY];
         arraySize = 0;
     }
 
